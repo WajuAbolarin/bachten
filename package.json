@@ -1,6 +1,6 @@
 {
   "name": "bachten",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "yarn@3.6.4",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --tsconfig=tsconfig.build.json --platform=node",
