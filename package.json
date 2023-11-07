@@ -1,0 +1,24 @@
+{
+  "name": "@waju/bachten",
+  "version": "0.0.1",
+  "packageManager": "yarn@3.6.4",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --tsconfig=tsconfig.build.json --platform=node",
+    "types:check": "tsc --noEmit",
+    "run:app": "node dist/index.js",
+    "dev": "esbuild src/index.ts --bundle --outfile=dist/index.js --tsconfig=tsconfig.build.json  --platform=node --watch"
+  },
+  "bin": "dist/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "esbuild": "^0.19.4",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/cli-progress": "^3.11.5",
+    "cli-progress": "^3.12.0",
+    "undici": "^5.26.4"
+  }
+}
