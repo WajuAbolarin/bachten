@@ -193,9 +193,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@waju/bachten@workspace:.":
+"ansi-regex@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "ansi-regex@npm:5.0.1"
+  checksum: 2aa4bb54caf2d622f1afdad09441695af2a83aa3fe8b8afa581d205e57ed4261c183c4d3877cee25794443fde5876417d859c108078ab788d6af7e4fe52eb66b
+  languageName: node
+  linkType: hard
+
+"bachten@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@waju/bachten@workspace:."
+  resolution: "bachten@workspace:."
   dependencies:
     "@types/cli-progress": ^3.11.5
     "@types/node": ^20.8.6
@@ -207,13 +214,6 @@ __metadata:
     bachten: dist/index.js
   languageName: unknown
   linkType: soft
-
-"ansi-regex@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "ansi-regex@npm:5.0.1"
-  checksum: 2aa4bb54caf2d622f1afdad09441695af2a83aa3fe8b8afa581d205e57ed4261c183c4d3877cee25794443fde5876417d859c108078ab788d6af7e4fe52eb66b
-  languageName: node
-  linkType: hard
 
 "cli-progress@npm:^3.12.0":
   version: 3.12.0
