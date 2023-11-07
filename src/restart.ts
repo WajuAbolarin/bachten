@@ -18,6 +18,7 @@ export const restart = async (ip: string) => {
   );
 
   const data = await response.json();
-  global.progress.increment(1);
-  console.log(data);
+  global.progress.increment(1,{
+    note: `Restart ${data.name} `, 
+  });
 };

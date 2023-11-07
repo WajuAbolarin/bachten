@@ -6,16 +6,18 @@ export const check = async (subcommands: string[]) => {
   try {
     const runners = await Gitlab.getOfflineRunners();
 
-    global.progress.increment(1);
+    global.progress.increment(1, { note: "Get offline runners" });
     if (runners.length === 0) {
       return;
     }
-    
+
     global.progress.setTotal(2);
     const message = Slack.buildOfflineRunnersMessage(runners);
     await Slack.sendSlackMessage(message);
-    global.progress.increment(1);
-    
+    global.progress.increment(1, {
+      note: "Send Slack message",
+    });
+
     if (subcommands.includes("restart")) {
       await restartOffline(runners);
     }
@@ -29,11 +31,15 @@ const restartOffline = async (runners: RunnerSchema[]) => {
     global.progress.setTotal(runners.length + 1);
     for (const runner of runners) {
       const ip = runner.description.split("-")[0];
-      console.log(`======= Restarting ${ip} =========`);
       await restart(ip);
     }
+    
     await Slack.sendSlackMessage(Slack.buildRestartedMachineMessage(runners));
-    global.progress.increment(1);
+    
+    global.progress.increment(1, {
+      note: "Send Slack message",
+    });
+    
   } catch (err) {
     console.error("Error restarting runners");
     throw err;

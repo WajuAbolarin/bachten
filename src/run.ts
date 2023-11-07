@@ -2,7 +2,7 @@ import { log } from "./util";
 import { check } from "./check";
 import { restart } from "./restart";
 import { invariant } from "./util";
-import {SingleBar, Presets}  from 'cli-progress'
+import { Presets, SingleBar } from "cli-progress";
 
 const commands = [
   {
@@ -20,36 +20,46 @@ const commands = [
 export const run = async () => {
   const tuple = process.argv.slice(2);
   const [command, ...args] = tuple;
-  const progress = new SingleBar({}, Presets.shades_classic); 
-  global.progress = progress
-  
+  const progress = new SingleBar({
+    format: " {bar} | {note} | {value}/{total}",
+  }, Presets.shades_classic);
+  global.progress = progress;
+
   try {
-    
     log(`⏳ Running command "${tuple.join(" ")}"`);
-    progress.start(1, 0)
+    progress.start(1, 0);
 
     switch (command) {
       case "check": {
         invariant(
           !!args[0] && args[0] !== "restart",
-          `${tuple.join(" ")} is not a valid command`
+          `${tuple.join(" ")} is not a valid command`,
         );
 
         await check(args);
+        progress.stop();
+
+        log("✅ Checks successful");
+
         break;
       }
       case "restart": {
         invariant(!args[0], "No IP address provided");
 
         await restart(args[0]);
-        console.log(
-          "Restart Successful, please wait 2-4 minutes for a status check"
+        progress.stop();
+
+        log(
+          "✅ Restart Successful, please wait 2-4 minutes for a status check",
         );
+
         break;
       }
 
       case "help": {
         console.table(commands);
+        progress.stop();
+
         break;
       }
 
@@ -57,12 +67,10 @@ export const run = async () => {
         console.error(`${tuple.join(" ")} is not a valid command`);
       }
     }
-    log("✅ Operation successful");
     process.exit(0);
   } catch (error) {
+    progress.stop();
     console.error(error);
     process.exit(1);
-  }finally{
-    progress.stop()
   }
 };
