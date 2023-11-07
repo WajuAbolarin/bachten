@@ -27,7 +27,10 @@ export const run = async () => {
 
   try {
     log(`⏳ Running command "${tuple.join(" ")}"`);
-    progress.start(1, 0);
+    
+    if (command !== "help") {
+      progress.start(1, 0);
+    }
 
     switch (command) {
       case "check": {
@@ -58,8 +61,6 @@ export const run = async () => {
 
       case "help": {
         console.table(commands);
-        progress.stop();
-
         break;
       }
 
